@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girls' Tops and Cosmetics Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header, footer {
+            background-color: #ff4081;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ff4081;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+        nav a:hover {
+            background-color: #e03570;
+            border-radius: 5px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .product, .product-details {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            width: 30%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover, .product-details:hover {
+            transform: scale(1.05);
+        }
+        .product img, .product-details img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .product h3, .product-details h3 {
+            color: #ff4081;
+        }
+        .product button, .product-details button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .product button:hover, .product-details button:hover {
+            background-color: #e03570;
+        }
+        .popup, .orders-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .popup-close, .orders-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .popup .form-container, .orders-popup .orders-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .popup .form-container input, .popup .form-container select, .popup .form-container textarea, .orders-popup .orders-container {
+            padding: 10px;
+            margin: 5px;
+            width: 80%;
+        }
+        .orders-popup .orders-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        @media (max-width: 768px) {
+            .product, .product-details {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Girls' Tops and Cosmetics Store</h1>
+    </header>
+
+    <nav>
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#" onclick="showOrders()">Orders</a>
+    </nav>
+
+    <div class="container" id="home">
+        <div class="products">
+            <!-- Product 1 -->
+            <div class="product" onclick="showProductDetails('Stylish Top 1', 500, ['top1a.jpg', 'top1b.jpg', 'top1c.jpg'])">
+                <img src="top1a.jpg" alt="Top 1">
+                <h3>Stylish Top 1</h3>
+                <p>Price: Ksh 500</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm('Stylish Top 1', 500)">Buy Now</button>
+            </div>
+            <!-- More products... -->
+            <div class="product" onclick="showProductDetails('Top ', 600, ['top2b.jpg', 'top2c.jpg', 'top.jpg'])">
+                <img src="top2a.jpg" alt="Top 2">
+                <h3>Top</h3>
+                <p>Price: Ksh 600</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm(' Top ', 600)">Buy Now</button>
+            </div>
+            <div class="product" onclick="showProductDetails('Sweater', 300, ['sweater1b.jpg', 'sweater1c.jpg', 'Sweater1d.jpg'])">
+                <img src="sweater1a.jpg" alt="Cosmetic 1">
+                <h3>Sweater</h3>
+                <p>Price: Ksh 300</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm(' Sweater', 300)">Buy Now</button>
+            </div>
+
+            <div class="product" onclick="showProductDetails('skirt', 400, ['skirt1c.jpg', 'skirt1d.jpg', 'skirt1b.jpg'])">
+                <img src="skirt1b.jpg" alt="Cosmetic 1">
+                <h3>skirt</h3>
+                <p>Price: Ksh 400</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm('skirt', 400)">Buy Now</button>
+            </div>
+            <div class="product" onclick="showProductDetails('mini skirt', 600, ['skirt2c.jpg', 'skirt2d.jpg', 'skirt2c.jpg'])">
+                <img src="skirt2d.jpg" alt="Cosmetic 1">
+                <h3> mini skirt</h3>
+                <p>Price: Ksh 600</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm('miniskirt', 600)">Buy Now</button>
+            </div>
+
+            <div class="product" onclick="showProductDetails('dress', 1000, ['dress1b.jpg', 'dress1c.jpg', 'dress1a.jpg'])">
+                <img src="dress1a.jpg" alt="Cosmetic 1">
+                <h3>dress</h3>
+                <p>Price: Ksh 1000</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm('dress', 1000)">Buy Now</button>
+            </div>
+            
+            <div class="product" onclick="showProductDetails('fleece', 1200, ['fleece1b.jpg', 'fleece1c.jpg', 'fleece1a.jpg'])">
+                <img src="fleece1a.jpg" alt="Cosmetic 1">
+                <h3>fleece</h3>
+                <p>Price: Ksh 1200</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm('fleece', 1200)">Buy Now</button>
+            </div>
+            <div class="product" onclick="showProductDetails('short', 1200, ['short1a.jpg', 'short1b.jpg', 'short1.jpg'])">
+                <img src="short1.jpg" alt="Cosmetic 1">
+                <h3>short</h3>
+                <p>Price: Ksh 800</p>
+                <button onclick="event.stopPropagation(); showCheckoutForm('short', 800)">Buy Now</button>
+            </div>
+
+            <!-- Add more products similarly -->
+        </div>
+
+        <div class="popup" id="popup">
+            <button class="popup-close" onclick="closePopup()">X</button>
+            <div class="form-container">
+                <h2>Checkout Form</h2>
+                <input type="text" id="productName" readonly>
+                <input type="text" id="productPrice" readonly>
+                <input type="text" id="customerName" placeholder="Your Name">
+                <input type="email" id="customerEmail" placeholder="Your Email">
+                <input type="tel" id="customerPhone" placeholder="Phone Number">
+                <input type="number" id="productQuantity" placeholder="Quantity" min="1" value="1">
+                <input type="text" id="deliveryAddress" placeholder="Delivery Address">
+                <textarea id="deliveryDescription" placeholder="Delivery Description"></textarea>
+                <select id="paymentMethod">
+                    <option value="credit-card">Credit Card</option>
+                    <option value="paypal">Paypal</option>
+                    <option value="mpesa">M-Pesa</option>
+                    <option value="pay-on-delivery">Pay on Delivery</option>
+                </select>
+                <button onclick="completePurchase()">Complete Purchase</button>
+            </div>
+        </div>
+
+        <div class="orders-popup" id="orders-popup">
+            <button class="orders-popup-close" onclick="closeOrdersPopup()">X</button>
+            <div class="orders-container">
+                <h2>Order Information</h2>
+                <ul id="order-details"></ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Girls' Tops and Cosmetics Store. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showProductDetails(name, price, images) {
+            let productDetailsHtml = `
+                <div class="product-details">
+                    <h3>${name}</h3>
+                    <p>Price: Ksh ${price}</p>
+                    ${images.map(img => `<img src="${img}" alt="${name}">`).join('')}
+                    <button onclick="showCheckoutForm('${name}', ${price})">Buy Now</button>
+                </div>
+            `;
+            document.getElementById('home').innerHTML = productDetailsHtml;
+        }
+
+        function showCheckoutForm(productName, productPrice) {
+            document.getElementById('productName').value = productName;
+            document.getElementById('productPrice').value = productPrice;
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function showOrders() {
+            document.getElementById('orders-popup').style.display = 'block';
+        }
+
+        function closeOrdersPopup() {
+            document.getElementById('orders-popup').style.display = 'none';
+        }
+
+        function completePurchase() {
+            const productName = document.getElementById('productName').value;
+            const productPrice = document.getElementById('productPrice').value;
+            const customerName = document.getElementById('customerName').value;
+            const customerEmail = document.getElementById('customerEmail').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const productQuantity = document.getElementById('productQuantity').value;
+            const deliveryAddress = document.getElementById('deliveryAddress').value;
+            const deliveryDescription = document.getElementById('deliveryDescription').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            if (customerName && customerEmail && customerPhone && productQuantity && deliveryAddress && deliveryDescription && paymentMethod) {
+                alert(`Thank you, ${customerName}! Your order has been placed successfully. Payment Method: ${paymentMethod}`);
+                // Display order information
+                const orderDetails = `
+                    <li>Product: ${productName}</li>
+                    <li>Price: Ksh ${productPrice}</li>
+                    <li>Quantity: ${productQuantity}</li>
+                    <li>Customer Name: ${customerName}</li>
+                    <li>Email: ${customerEmail}</li>
+                    <li>Phone: ${customerPhone}</li>
+                    <li>Delivery Address: ${deliveryAddress}</li>
+                    <li>Delivery Description: ${deliveryDescription}</li>
+                    <li>Payment Method: ${paymentMethod}</li>
+                `;
+                document.getElementById('order-details').innerHTML = orderDetails;
+                document.getElementById('orders-popup').style.display = 'block';
+                // Reset the form and close popup
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('customerName').value = '';
+                document.getElementById('customerEmail').value = '';
+                document.getElementById('customerPhone').value = '';
+                document.getElementById('productQuantity').value = 1;
+                document.getElementById('deliveryAddress').value = '';
+                document.getElementById('deliveryDescription').value = '';
+                document.getElementById('paymentMethod').value = 'credit-card';
+            } else {
+                alert('Please fill in all the details.');
+            }
+        }
+
+        function showHome() {
+            // Reload the page to go back to the home page
+            location.reload();
+        }
+    </script>
+</body>
+</html>
